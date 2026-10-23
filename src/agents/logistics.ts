@@ -1,0 +1,225 @@
+"use server";
+
+import { ai } from "@/lib/gemini-client";
+import { MODELS } from "@/lib/constants";
+import { type Incident } from "@/lib/types";
+import { ThinkingLevel, Type } from "@google/genai";
+
+
+import { generateContentStreamWithRetry, extractAndParseJSON } from "@/lib/gemini-utils";
+
+// Helper for cinematic typing effect
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// The Logistics Agent routes assets and checks for road closures using Grounding.
+export async function manageLogistics(incident: Incident, onThought?: (thought: string) => void): Promise<Partial<Incident>> {
+    if (!process.env.GEMINI_API_KEY) {
+        console.error("[LOGISTICS] GEMINI_API_KEY missing. Cannot proceed with Live Logistics.");
+        return {
+            assigned_assets: ["NO_ACTION"],
+            reasoning_trace: "System Offline: No AI API Key provided. Logistics analysis unavailable.",
+            verification_status: "UNVERIFIED",
+            priority: "LOW"
+        };
+    }
+    console.log(`[LOGISTICS] Routing assets for incident ${incident.id} at ${incident.location.address || incident.location.lat + "," + incident.location.lng}...`);
+
+    // We only run logistics for high priority items in this demo flow
+
+    // PROTOCOL ZERO: Safety Valve Check
+    if (incident.requires_human_auth) {
+        if (!incident.auth_status || incident.auth_status === "PENDING") {
+            console.log(`[LOGISTICS] ⏸️ PAUSING for Human Authorization: ${incident.id}`);
+            return {
+                status: "TRIAGED", // Keep it active in the list, but effectively paused from final resolution
+                reasoning_trace: "⚠️ PROTOCOL ZERO ACTIVE: High-stakes decision requires COMMANDER AUTHORIZATION. Holding for approval...",
+                assigned_assets: ["AWAITING AUTH"]
+            };
+        } else if (incident.auth_status === "DENIED") {
+            return {
+                status: "RESOLVED",
+                reasoning_trace: "🚫 ACTION DENIED by Commander. Aborting deployment.",
+                assigned_assets: ["ABORTED"]
+            };
+        }
+        // If APPROVED, we proceed to standard logic below...
+    }
+
+    // Voice of God Override Logic
+    // If this is a COMMAND incident, the goal is to "execute" the logistics update.
+    let instruction = "";
+    if (incident.type === "COMMAND") {
+        if (incident.command_intent === "INVALID_COMMAND" || (incident.reasoning_trace || "").includes("INVALID_COMMAND")) {
+            console.log("[LOGISTICS] Command marked INVALID. Requesting NO_ACTION.");
+            return {
+                assigned_assets: ["NO_ACTION"],
+                reasoning_trace: "Command rejected by Coordinator as vague/invalid. No assets deployed.",
+                status: "RESOLVED"
+            };
+        }
+
+        instruction = `
+        CRITICAL OVERRIDE: The Commander has issued a direct verbal order: "${incident.command_intent}".
+        TASK:
+        1. Acknowledge the order.
+        2. Identify what assets need to be moved or rerouted.
+        3. **STRICT ASSET ALLOW-LIST**:
+           - You may ONLY deploy items from this list:
+             ["Rescue Boat", "Helicopter", "Drone Swarm", "Patrol Car", "Medical Unit", "Fire Truck", "Ambulance", "Hazmat Team", "SYSTEM_UPDATE"].
+           - If the user did not specify one, pick the most logical one or "SYSTEM_UPDATE".
+           - DO NOT invent assets like "42 Oak Street" or sentences.
+        4. If it's a general update, output "SYSTEM_UPDATE".
+        `;
+    } else {
+        instruction = `
+        Task:
+        1. TEMPORAL VERIFICATION (CRITICAL):
+           - Search for this specific incident code or description to see if it is a "Historical Event" (e.g. from 2024, 2025).
+           - Compare any found dates with the CURRENT SYSTEM TIME provided below.
+           - If the event appears to be from the past (> 24 hours ago), flag verification_status as "HISTORICAL".
+           - If no external confirmation is found but it's a realistic localized signal, flag as "UNVERIFIED" but proceed with caution.
+           - If confirmed as happening NOW, flag as "VERIFIED".
+
+        2. Search for current road closures or flooding reports in this specific area using Google Search.
+         3. DETERMINE the required asset type: 
+            - **CRITICAL RULE**: If verification_status is "HISTORICAL" or "UNVERIFIED", DO NOT recommend high-value assets like "Coast Guard Rescue Helicopter" or "NDRF Heavy Battalion". Instead, recommend "Police Reconnaissance Patrol" or "Field Scout Drone" for initial confirmation.
+            - If VERIFIED: "AIR" (if inaccessible/mountainous/cut-off), "MARINE" (if riverine/inundated), or "GROUND" (if road navigable).
+         4. Recommend the best specific vehicle or team based on verification status and accessibility:
+            * "NDRF Inflatable Rescue Boat" (Floods / Waterlogging)
+            * "State Fire Water Tender" / "Hydraulic Snorkel Platform" (Fires / Structural)
+            * "108 Advanced Life Support Ambulance" (Trauma / Inhalation)
+            * "SDRF Quick Response Unit" (Local emergency cordon)
+            * "Coast Guard / IAF Rescue Helicopter" (Airlift / Cut-off zones)
+            * "Traffic Police Green Corridor Unit" (Route clearance)
+         5. PRIORITY RE-EVALUATION:
+            - If verification_status is "HISTORICAL", you MUST downgrade the incident priority to "LOW".
+            - If "UNVERIFIED" but high-stakes, set priority to "MEDIUM".
+            - Never allow a "HISTORICAL" event to remain "CRITICAL".
+        `;
+    }
+
+    const systemInstruction = `
+    You are a Logistics Coordinator for ResQBharat — India's Autonomous Emergency Logistics & Resource Dispatch System.
+
+    ROLE:
+    Your job is to route emergency assets (ambulances, NDRF/SDRF rescue boats, fire tenders, helicopters) to incidents across India based on:
+    1. Incident Needs (e.g., Flood -> Inflatable Rescue Boat, Fire -> Fire Tender, Medical -> 108 ALS Ambulance).
+    2. Environmental & Terrain Conditions (e.g., Waterlogged underpasses, NH-44 highway blockages, flooded river basins).
+    3. Asset Availability & Prioritization.
+
+    OUTPUT ADHERENCE:
+    You must output a strictly valid JSON object.
+    - recommended_asset: The best vehicle or unit for the job (e.g. "NDRF Inflatable Boat", "Fire Service Water Tender", "108 ALS Ambulance").
+      * MUST be short noun phrase.
+      * NO SENTENCES. NO LOCATIONS.
+    - required_asset_type: "AIR" | "MARINE" | "GROUND" | "General".
+    - verification_status: "VERIFIED" | "UNVERIFIED" | "HISTORICAL".
+    - priority: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" (Use this to downgrade if historical).
+    - routing_notes: Explanation of the route, verification findings, and any road hazards.
+    - road_status: Summary of Indian road conditions found using Grounding.
+    `;
+
+    const userPrompt = `
+    CURRENT SYSTEM TIME: ${new Date().toLocaleString("en-US", { timeZone: "UTC" })} UTC
+    
+    INCIDENT DATA:
+    ID: ${incident.id}
+    Location: ${incident.location.address || "Unknown (Lat: " + incident.location.lat + ", Lng: " + incident.location.lng + ")"}
+    Category: ${incident.category || "General Emergency"}
+    Priority: ${incident.priority || "UNKNOWN"}
+    Description/Context: ${incident.mission_context || "N/A"}
+    
+    SPECIAL INSTRUCTIONS:
+    ${instruction}
+    
+    Determine the optimal logistics response and VERIFY the incident timeline.
+    `;
+
+    try {
+        // ... existing code ...
+
+        // Collect grounding queries from Google Search Grounding (PRD §3.4)
+        const collectedGroundingQueries: string[] = [];
+
+        const resultStream = await generateContentStreamWithRetry(ai.models, {
+            model: MODELS.LOGISTICS,
+            contents: [{ text: userPrompt }],
+            config: {
+                systemInstruction: systemInstruction,
+                tools: [{ googleSearch: {} }], // Grounding enabled
+                thinkingConfig: {
+                    includeThoughts: true,
+                    thinkingLevel: ThinkingLevel.HIGH
+                }
+            },
+        });
+
+        let fullText = "";
+        let collectedThoughts = "";
+
+        for await (const chunk of resultStream) {
+            // Check for grounding metadata in stream chunks
+            const metadata = chunk.candidates?.[0]?.groundingMetadata;
+            if (metadata?.webSearchQueries) {
+                console.log(`[LOGISTICS] Grounding Queries:`, metadata.webSearchQueries);
+                for (const q of metadata.webSearchQueries) {
+                    if (!collectedGroundingQueries.includes(q)) {
+                        collectedGroundingQueries.push(q);
+                    }
+                }
+            }
+
+            const parts = chunk.candidates?.[0]?.content?.parts || [];
+            for (const part of parts) {
+                if (part.thought) {
+                    collectedThoughts += part.text;
+                    if (onThought && part.text) {
+                        // CINEMATIC SMOOTHING:
+                        const chunkText = part.text;
+                        for (let i = 0; i < chunkText.length; i += 5) {
+                            onThought(chunkText.slice(i, i + 5));
+                            await delay(15);
+                        }
+                    }
+                } else if (part.text) {
+                    fullText += part.text;
+                }
+            }
+        }
+
+        // ... (JSON parsing logic)
+        let result;
+        try {
+            result = extractAndParseJSON(fullText);
+        } catch (e) {
+            console.warn("[LOGISTICS] Failed to parse JSON, using fallback text parsing or defaults", fullText);
+            result = {
+                recommended_asset: incident.type === "COMMAND" ? "SYSTEM UPDATE" : "Standard Rescue Boat",
+                routing_notes: fullText.substring(0, 200),
+                road_status: "Manual check required due to parsing error."
+            };
+        }
+
+        // Store raw thoughts in custom field
+        (result as any).raw_thoughts = collectedThoughts.trim() || result.reasoning_trace;
+
+        return {
+            assigned_assets: [result.recommended_asset],
+            required_asset: (result.required_asset_type || "General").toUpperCase() as any,
+            reasoning_trace: incident.auth_status === "APPROVED"
+                ? `[PROTOCOL ZERO SANCTIONED]: ACTION AUTHORIZED BY COMMANDER. ${result.routing_notes}`
+                : incident.type === "COMMAND"
+                    ? `COMMAND EXECUTED: ${result.routing_notes}`
+                    : result.routing_notes,
+            verification_status: result.verification_status || "UNVERIFIED",
+            priority: result.priority || incident.priority,
+            grounding_queries: collectedGroundingQueries.length > 0 ? collectedGroundingQueries : undefined,
+        };
+
+    } catch (error) {
+        console.error("[LOGISTICS] Error managing logistics:", error);
+        return {
+            assigned_assets: ["Standard Response Vehicle (Fallback)"]
+        };
+    }
+}

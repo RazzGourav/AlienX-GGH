@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "ResQ Citizen",
+    "slug": "resq-citizen",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "resqcitizen",
+    "splash": {
+      "backgroundColor": "#050505"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.resqbharat.citizen",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "ResQ Citizen requires your GPS location to broadcast your emergency position to police, ambulances and rescue units.",
+        "NSMicrophoneUsageDescription": "ResQ Citizen needs microphone access to record voice distress notes during emergencies.",
+        "NSCameraUsageDescription": "ResQ Citizen needs camera access to capture incident evidence."
+      }
+    },
+    "android": {
+      "package": "com.resqbharat.citizen",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "RECORD_AUDIO",
+        "CAMERA",
+        "VIBRATE",
+        "INTERNET"
+      ]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}
