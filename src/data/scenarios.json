@@ -1,0 +1,153 @@
+[
+    {
+        "id": "SCN-BILASPUR-COLLAPSE",
+        "title": "Bilaspur Bus Stand Slab Collapse & Gas Rupture",
+        "region": "Bilaspur, Chhattisgarh",
+        "description": "Mass casualty commercial building collapse with trapped victims and secondary LPG hazard in crowded transit hub.",
+        "default_center": {
+            "lat": 22.0797,
+            "lng": 82.1409,
+            "zoom": 14
+        },
+        "incidents": [
+            {
+                "id": "EVT-BSP-001",
+                "timestamp": "10:14:02",
+                "type": "AUDIO",
+                "raw_input": "पुराने बस स्टैंड के पास इमारत गिर गई है, मलबे में 4 लोग दबे हैं, तुरंत मदद भेजो!",
+                "location": {
+                    "lat": 22.0797,
+                    "lng": 82.1409,
+                    "address": "Old Bus Stand, Raipur Road, Bilaspur, Chhattisgarh"
+                },
+                "status": "PENDING",
+                "mission_context": "Initial distress call received via ERSS-112 audio channel.",
+                "is_simulated": true
+            },
+            {
+                "id": "EVT-BSP-002",
+                "timestamp": "10:15:30",
+                "type": "TEXT",
+                "raw_input": "Old Bus stand market complex wall collapsed on road. 4 people trapped inside debris. Strong smell of LPG cylinder gas leak nearby!",
+                "location": {
+                    "lat": 22.0805,
+                    "lng": 82.1415,
+                    "address": "Old Bus Stand Market Complex, Bilaspur, Chhattisgarh"
+                },
+                "status": "PENDING",
+                "mission_context": "Bystander duplicate report with secondary hazard notice.",
+                "is_simulated": true
+            },
+            {
+                "id": "EVT-BSP-003",
+                "timestamp": "10:16:45",
+                "type": "TEXT",
+                "raw_input": "Traffic completely choked on Raipur Road near Old Bus Stand. Rubble on arterial blocking ambulance access route.",
+                "location": {
+                    "lat": 22.0812,
+                    "lng": 82.1420,
+                    "address": "Raipur Road Flyover Approach, Bilaspur, Chhattisgarh"
+                },
+                "status": "PENDING",
+                "mission_context": "Traffic Police road blockage report.",
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "SCN-DELHI-YAMUNA-FLOOD",
+        "title": "Yamuna Riverbank Urban Flash Flood",
+        "region": "Kashmiri Gate, New Delhi",
+        "description": "Monsoon surge exceeding danger mark, low-lying residential inundation with submerged electrical transformers.",
+        "default_center": {
+            "lat": 28.6692,
+            "lng": 77.2280,
+            "zoom": 14
+        },
+        "incidents": [
+            {
+                "id": "EVT-DEL-001",
+                "timestamp": "08:30:10",
+                "type": "TEXT",
+                "raw_input": "SCADA TELEMETRY: Yamuna river level crossed 208.4 meters at Old Railway Bridge. Water ingress in Monastery Market lowlands.",
+                "location": {
+                    "lat": 28.6692,
+                    "lng": 77.2280,
+                    "address": "Old Railway Bridge, Yamuna Ghat, New Delhi"
+                },
+                "status": "PENDING",
+                "mission_context": "Automated hydro-telemetry early flood warning.",
+                "is_simulated": true
+            },
+            {
+                "id": "EVT-DEL-002",
+                "timestamp": "08:31:40",
+                "type": "AUDIO",
+                "raw_input": "Ghar mein paani chhat tak pahunch gaya hai, gali ka transformer paani mein doob raha hai current ka khatra hai! NDRF ki boat bhejiye!",
+                "location": {
+                    "lat": 28.6710,
+                    "lng": 77.2295,
+                    "address": "Monastery Market, Kashmiri Gate, New Delhi"
+                },
+                "status": "PENDING",
+                "mission_context": "Citizen emergency call: high electrocution threat.",
+                "is_simulated": true
+            },
+            {
+                "id": "EVT-DEL-003",
+                "timestamp": "08:33:00",
+                "type": "TEXT",
+                "raw_input": "Ring Road near ISBT Kashmiri Gate submerged under 3 feet of water. Heavy traffic diversions required immediately.",
+                "location": {
+                    "lat": 28.6680,
+                    "lng": 77.2310,
+                    "address": "ISBT Kashmiri Gate Ring Road, New Delhi"
+                },
+                "status": "PENDING",
+                "mission_context": "Delhi Traffic Police arterial bypass request.",
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "SCN-SURAT-HAZMAT-GAS",
+        "title": "Surat GIDC Ammonia Hazmat Chemical Leak",
+        "region": "Sachin GIDC, Surat, Gujarat",
+        "description": "Industrial ammonia tanker valve rupture releasing toxic vapor cloud into worker residential sectors.",
+        "default_center": {
+            "lat": 21.0827,
+            "lng": 72.8800,
+            "zoom": 14
+        },
+        "incidents": [
+            {
+                "id": "EVT-SRT-001",
+                "timestamp": "14:02:15",
+                "type": "TEXT",
+                "raw_input": "CRITICAL HAZMAT: Ammonia gas tank valve rupture at Sachin GIDC Road No. 4. Dense toxic white cloud moving east towards residential colony!",
+                "location": {
+                    "lat": 21.0827,
+                    "lng": 72.8800,
+                    "address": "Sachin GIDC Industrial Area, Surat, Gujarat"
+                },
+                "status": "PENDING",
+                "mission_context": "Industrial safety officer emergency report.",
+                "is_simulated": true
+            },
+            {
+                "id": "EVT-SRT-002",
+                "timestamp": "14:03:50",
+                "type": "AUDIO",
+                "raw_input": "Bahar sabhi log behosh ho rahe hain, aankhon mein jalan aur saans lene mein taklif ho rahi hai, ambulances bhejo jaldi!",
+                "location": {
+                    "lat": 21.0845,
+                    "lng": 72.8820,
+                    "address": "GIDC Colony Sector 2, Sachin, Surat, Gujarat"
+                },
+                "status": "PENDING",
+                "mission_context": "Community mass casualty distress call.",
+                "is_simulated": true
+            }
+        ]
+    }
+]

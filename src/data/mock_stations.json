@@ -1,0 +1,388 @@
+[
+    {
+        "id": "STN-DEL-POL-01",
+        "name": "Parliament Street Police & Traffic Division",
+        "service_type": "police_traffic",
+        "location": {
+            "lat": 28.6250,
+            "lng": 77.2140,
+            "address": "Parliament Street, Connaught Place, New Delhi"
+        },
+        "contact": "ERSS 112 / PCR Dispatch Control",
+        "jurisdiction": "New Delhi Central Zone",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "DL-POL-PCR-04",
+                "station_id": "STN-DEL-POL-01",
+                "unit_name": "Delhi Police PCR Mobile Patrol 04",
+                "unit_type": "Traffic & Perimeter Cordon Vehicle",
+                "service_category": "police_traffic",
+                "status": "AVAILABLE",
+                "capabilities": ["Traffic Diversion", "Crowd Control", "Emergency Escort"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "DL-TRF-INTERCEPTOR-02",
+                "station_id": "STN-DEL-POL-01",
+                "unit_name": "Traffic Police Green Corridor Interceptor",
+                "unit_type": "High-Speed Highway Escort",
+                "service_category": "police_traffic",
+                "status": "AVAILABLE",
+                "capabilities": ["Green Corridor Clearance", "Accident Site Barrier"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-DEL-AMB-01",
+        "name": "AIIMS Apex Trauma Emergency Ambulance Hub",
+        "service_type": "medical",
+        "location": {
+            "lat": 28.5672,
+            "lng": 77.2100,
+            "address": "Ring Road, AIIMS Campus, Ansari Nagar, New Delhi"
+        },
+        "contact": "Central Ambulance Room (108 / 102)",
+        "jurisdiction": "South & Central Delhi",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "AIIMS-ALS-01",
+                "station_id": "STN-DEL-AMB-01",
+                "unit_name": "Advanced Life Support (ALS) Unit 01",
+                "unit_type": "Critical Care Ambulance (Ventilator/Defib)",
+                "service_category": "medical",
+                "status": "AVAILABLE",
+                "capabilities": ["Mechanical Ventilation", "Defibrillation", "Trauma Triage"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "CATS-BLS-03",
+                "station_id": "STN-DEL-AMB-01",
+                "unit_name": "CATS Emergency Medical Unit 03",
+                "unit_type": "Basic Life Support Ambulance",
+                "service_category": "medical",
+                "status": "AVAILABLE",
+                "capabilities": ["Oxygen Support", "Stretcher Evacuation", "First Aid"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-DEL-FIR-01",
+        "name": "Delhi Fire Service Connaught Circus Headquarters",
+        "service_type": "fire_rescue",
+        "location": {
+            "lat": 28.6328,
+            "lng": 77.2197,
+            "address": "Connaught Circus, Barakhamba, New Delhi"
+        },
+        "contact": "Delhi Fire Service Control (101)",
+        "jurisdiction": "Delhi NCT Central",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "DFS-WATER-TENDER-05",
+                "station_id": "STN-DEL-FIR-01",
+                "unit_name": "DFS Water Tender 05 (High-Pressure Foam)",
+                "unit_type": "Heavy Fire Appliance",
+                "service_category": "fire_rescue",
+                "status": "AVAILABLE",
+                "capabilities": ["High-Pressure Foam Foam Injection", "Structural Firefighting"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "DFS-HYDRAULIC-SNORKEL-02",
+                "station_id": "STN-DEL-FIR-01",
+                "unit_name": "Hydraulic Snorkel Ladder Platform (55m)",
+                "unit_type": "Aerial High-Rise Rescue",
+                "service_category": "fire_rescue",
+                "status": "AVAILABLE",
+                "capabilities": ["High-Rise Evacuation", "Rooftop Rescue", "Searchlights"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-DEL-NDRF-01",
+        "name": "NDRF 8th Battalion Flood & Disaster Relief Base",
+        "service_type": "disaster_response",
+        "location": {
+            "lat": 28.7120,
+            "lng": 77.2290,
+            "address": "Yamuna Floodplain Depot, Wazirabad, Delhi"
+        },
+        "contact": "NDRF National Control Room",
+        "jurisdiction": "Yamuna Basin / Northern Region",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "NDRF-8BN-IRB-01",
+                "station_id": "STN-DEL-NDRF-01",
+                "unit_name": "NDRF Inflatable Rescue Motorboat Alpha",
+                "unit_type": "Motorized Flood Rescue Craft",
+                "service_category": "disaster_response",
+                "status": "AVAILABLE",
+                "capabilities": ["Swift Water Extraction", "Night Vision Sonar", "12-Person Capacity"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "NDRF-COLLAPSE-SEARCH-03",
+                "station_id": "STN-DEL-NDRF-01",
+                "unit_name": "Collapsed Structure Search & Rescue (CSSR) Unit",
+                "unit_type": "Urban Debris Extrication Squad",
+                "service_category": "disaster_response",
+                "status": "AVAILABLE",
+                "capabilities": ["Acoustic Life Detectors", "Hydraulic Diamond Cutters", "Search K9"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-MUM-POL-01",
+        "name": "Mumbai Police Control Room & Traffic HQ",
+        "service_type": "police_traffic",
+        "location": {
+            "lat": 18.9410,
+            "lng": 72.8315,
+            "address": "Azad Maidan, Fort, Mumbai, Maharashtra"
+        },
+        "contact": "Mumbai Police 112 Emergency Desk",
+        "jurisdiction": "South Mumbai Marine Corridor",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "MUM-POL-CRUISER-08",
+                "station_id": "STN-MUM-POL-01",
+                "unit_name": "Mumbai Marine Drive Cordon Patrol 08",
+                "unit_type": "Coastal Road Interceptor",
+                "service_category": "police_traffic",
+                "status": "AVAILABLE",
+                "capabilities": ["Promenade Evacuation", "High-Tide Cordon", "Sirens"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-MUM-FIR-01",
+        "name": "Mumbai Fire Brigade Byculla Command Centre",
+        "service_type": "fire_rescue",
+        "location": {
+            "lat": 18.9750,
+            "lng": 72.8330,
+            "address": "Bapurao Jagtap Marg, Byculla, Mumbai, Maharashtra"
+        },
+        "contact": "MFB Headquarters Control (101)",
+        "jurisdiction": "Greater Mumbai",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "MFB-HIGH-VOLUME-PUMP-01",
+                "station_id": "STN-MUM-FIR-01",
+                "unit_name": "MFB High-Volume Submersible Dewatering Pump",
+                "unit_type": "Urban Water Inundation Extractor",
+                "service_category": "fire_rescue",
+                "status": "AVAILABLE",
+                "capabilities": ["Subway Dewatering", "Basement Flood Pumping", "5000 LPM"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-MUM-NDRF-01",
+        "name": "NDRF Mithi River Basin Response Depot",
+        "service_type": "disaster_response",
+        "location": {
+            "lat": 19.0680,
+            "lng": 72.8750,
+            "address": "Kurla West, Mithi River Corridor, Mumbai, Maharashtra"
+        },
+        "contact": "NDRF Maharashtra Operations",
+        "jurisdiction": "Kurla / BKC Flood Zone",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "NDRF-MITHI-BOAT-02",
+                "station_id": "STN-MUM-NDRF-01",
+                "unit_name": "Mithi Flood Rescue Inflatable Craft 02",
+                "unit_type": "Heavy Duty Inflatable Rescue Boat (IRB)",
+                "service_category": "disaster_response",
+                "status": "AVAILABLE",
+                "capabilities": ["Deep Inundation Navigation", "Medical Winch", "Victim Lifejackets"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-BSP-ALL-01",
+        "name": "Bilaspur District Disaster Management & ERSS Hub",
+        "service_type": "disaster_response",
+        "location": {
+            "lat": 22.0810,
+            "lng": 82.1420,
+            "address": "Old Bus Stand, Raipur Road, Bilaspur, Chhattisgarh"
+        },
+        "contact": "Chhattisgarh ERSS 112 / DDMA",
+        "jurisdiction": "Bilaspur Urban Division",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "BSP-SDRF-CUTTER-01",
+                "station_id": "STN-BSP-ALL-01",
+                "unit_name": "SDRF Collapse Extrication Cutter Team 01",
+                "unit_type": "Heavy Structural Rescue Unit",
+                "service_category": "disaster_response",
+                "status": "AVAILABLE",
+                "capabilities": ["Hydraulic Concrete Cutters", "Search Sound Detectors", "Pneumatic Jacks"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "BSP-108-ALS-AMB-02",
+                "station_id": "STN-BSP-ALL-01",
+                "unit_name": "Chhattisgarh 108 ALS Emergency Ambulance",
+                "unit_type": "Advance Life Support Trauma Unit",
+                "service_category": "medical",
+                "status": "AVAILABLE",
+                "capabilities": ["Spinal Immobilization", "Trauma Dressing", "Oxygen Resuscitation"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "BSP-FIRE-WATER-03",
+                "station_id": "STN-BSP-ALL-01",
+                "unit_name": "Bilaspur Municipal Fire Water Tender 03",
+                "unit_type": "Crash Rescue Tender",
+                "service_category": "fire_rescue",
+                "status": "AVAILABLE",
+                "capabilities": ["Debris Dousing", "Power Generator Floodlights"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-SRT-HAZ-01",
+        "name": "Surat Chemical Industrial Corridor Disaster Base",
+        "service_type": "fire_rescue",
+        "location": {
+            "lat": 21.1650,
+            "lng": 72.8250,
+            "address": "NH-48 Industrial Bypass, Surat, Gujarat"
+        },
+        "contact": "Gujarat State Disaster Management Authority",
+        "jurisdiction": "South Gujarat Hazmat Corridor",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "SRT-HAZMAT-NEUTRALIZER-01",
+                "station_id": "STN-SRT-HAZ-01",
+                "unit_name": "Chemical Hazmat Neutralization Vehicle",
+                "unit_type": "Level-A Enclosed Hazmat Response Tender",
+                "service_category": "fire_rescue",
+                "status": "AVAILABLE",
+                "capabilities": ["Ammonia/Chlorine Water Curtain Vapor Neutralizer", "SCBA Packs", "Decontamination Shower"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "SRT-108-RESP-AMB-04",
+                "station_id": "STN-SRT-HAZ-01",
+                "unit_name": "Gujarat 108 Respiratory Trauma Ambulance",
+                "unit_type": "Toxic Inhalation Critical Care Ambulance",
+                "service_category": "medical",
+                "status": "AVAILABLE",
+                "capabilities": ["Continuous Positive Airway Pressure (CPAP)", "Nebulization", "Antidote Kits"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-DEL-PCR-100",
+        "name": "Delhi Police Command & Dial 100 Rapid Mobile Division",
+        "service_type": "police_crime",
+        "location": {
+            "lat": 28.6328,
+            "lng": 77.2197,
+            "address": "Delhi Police Headquarters, Jai Singh Road, Connaught Place, New Delhi"
+        },
+        "contact": "ERSS Dial 100 / 112 Crime Emergency Hub",
+        "jurisdiction": "NCT Delhi Special Operations Zone",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "DL-PCR-100-ALPHA",
+                "station_id": "STN-DEL-PCR-100",
+                "unit_name": "Delhi Police Dial 100 PCR Mobile Van Alpha",
+                "unit_type": "High-Speed Armed Interception Van",
+                "service_category": "police_crime",
+                "status": "AVAILABLE",
+                "capabilities": ["Armed Assault Response", "Victim Extraction", "Crime Scene Cordon"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "DL-POL-QRT-01",
+                "station_id": "STN-DEL-PCR-100",
+                "unit_name": "Delhi Police Quick Reaction Tactical Squad (QRT)",
+                "unit_type": "Tactical Assault & Anti-Violence Unit",
+                "service_category": "police_crime",
+                "status": "AVAILABLE",
+                "capabilities": ["Anti-Riot Intervention", "Hostage Rescue", "Weapons Containment"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "DL-SHAKTI-PATROL-01",
+                "station_id": "STN-DEL-PCR-100",
+                "unit_name": "Delhi Police Women Safety Flying Squad (Shakti)",
+                "unit_type": "Dedicated Women Safety & Harassment Response Unit",
+                "service_category": "police_crime",
+                "status": "AVAILABLE",
+                "capabilities": ["Immediate Women Safety Intervention", "Fast Secure Escort"],
+                "is_simulated": true
+            }
+        ]
+    },
+    {
+        "id": "STN-MUM-PCR-100",
+        "name": "Mumbai Police Control Room & Dial 100 Mobile Dispatch",
+        "service_type": "police_crime",
+        "location": {
+            "lat": 18.9438,
+            "lng": 72.8232,
+            "address": "Mumbai Police Commissionerate, Crawford Market, Mumbai, Maharashtra"
+        },
+        "contact": "Mumbai Police Dial 100 / ERSS-112",
+        "jurisdiction": "Greater Mumbai & Coastal Division",
+        "is_simulated": true,
+        "watermark": "SIMULATED DATA - HACKATHON DEMO ONLY",
+        "units": [
+            {
+                "unit_id": "MH-MUM-PCR-100",
+                "station_id": "STN-MUM-PCR-100",
+                "unit_name": "Mumbai Police Dial 100 Mobile Patrol Van",
+                "unit_type": "Crime Prevention & Interception Cruiser",
+                "service_category": "police_crime",
+                "status": "AVAILABLE",
+                "capabilities": ["Immediate Crime Interception", "Crowd De-escalation", "Perimeter Security"],
+                "is_simulated": true
+            },
+            {
+                "unit_id": "MH-MUM-QRT-DELTA",
+                "station_id": "STN-MUM-PCR-100",
+                "unit_name": "Mumbai Police Quick Response Team (QRT Delta)",
+                "unit_type": "Counter-Terror & Armed Threat Tactical Unit",
+                "service_category": "police_crime",
+                "status": "AVAILABLE",
+                "capabilities": ["Counter-Assault", "Special Weapons & Tactics"],
+                "is_simulated": true
+            }
+        ]
+    }
+]

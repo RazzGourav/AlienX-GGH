@@ -1,0 +1,113 @@
+[
+    {
+        "id": "EVT-AUDIO-001",
+        "raw_input": "/SeedData/Audios/audio1.mp3",
+        "location": {
+            "lat": 19.0728,
+            "lng": 72.8826,
+            "address": "Kurla West, Mithi River Basin, Mumbai, Maharashtra"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-VIDEO-001",
+        "raw_input": "/SeedData/Videos/v1.mp4",
+        "location": {
+            "lat": 28.6665,
+            "lng": 77.2330,
+            "address": "Yamuna Bazar, Kashmere Gate, New Delhi"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-VIDEO-002",
+        "raw_input": "/SeedData/Videos/v2.mov",
+        "location": {
+            "lat": 18.9438,
+            "lng": 72.8232,
+            "address": "Marine Drive Promenade, Mumbai, Maharashtra"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-TEXT-001",
+        "raw_input": "ERSS 112 Dispatch: आपातकालीन कॉल प्राप्त हुई। पुराने बस स्टैंड के पास, रायपुर रोड पर बहुमंजिला इमारत का एक हिस्सा ढह गया है। मलबे के नीचे कम से कम 4 लोग फंसे हुए हैं। तत्काल NDRF, फायर ब्रिगेड और 108 एम्बुलेंस की आवश्यकता है!",
+        "location": {
+            "lat": 22.0797,
+            "lng": 82.1409,
+            "address": "Old Bus Stand, Raipur Road, Bilaspur, Chhattisgarh"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-BIO-002",
+        "raw_input": "TRANSCRIPT ALERT: An ammonia tanker overturned on NH-48 near Surat industrial bypass. Thick toxic cloud drifting toward residential colonies. Multiple people reported unconscious with respiratory distress. Evacuate 2km radius immediately.",
+        "location": {
+            "lat": 21.1702,
+            "lng": 72.8311,
+            "address": "NH-48 Industrial Bypass, Surat, Gujarat"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-DAM-002",
+        "raw_input": "/SeedData/Videos/v3.mov",
+        "location": {
+            "lat": 9.8500,
+            "lng": 76.9700,
+            "address": "Idukki Arch Dam Spillway, Kerala"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-AUDIO-002",
+        "raw_input": "/SeedData/Audios/audio2.mp3",
+        "location": {
+            "lat": 30.1250,
+            "lng": 78.3200,
+            "address": "Rishikesh-Badrinath Highway (NH-58), Byasi, Uttarakhand"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-CYBER-003",
+        "raw_input": "SCADA TELEMETRY ALERT: Delhi Jal Board Wazirabad main water treatment plant reporting unauthorized network intrusion into chlorine dosing controllers. Chlorine feed override detected at fatal PPM. Manual emergency isolation required.",
+        "location": {
+            "lat": 28.7100,
+            "lng": 77.2280,
+            "address": "Wazirabad Water Treatment Plant, Delhi"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-FAKE-002",
+        "raw_input": "112 Caller (Non-Emergency): अरे भैया, मैंने 112 पे फोन किया है क्योंकि स्विगी वाले ने 1 घंटे से मेरा बिरयानी ऑर्डर नहीं पहुंचाया है! उसको बोलो जल्दी डिलीवरी दे, बहुत भूख लगी है।",
+        "location": {
+            "lat": 12.9716,
+            "lng": 77.5946,
+            "address": "Indiranagar 100ft Road, Bengaluru, Karnataka"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-CYBER-005",
+        "raw_input": "ALERT: Air Traffic Management radar feed anomaly detected at IGI Airport Terminal 3. Secondary surveillance radar displaying intermittent telemetry drops for western approach corridor. Airport emergency coordination center activated.",
+        "location": {
+            "lat": 28.5562,
+            "lng": 77.1000,
+            "address": "Indira Gandhi International Airport (DEL), New Delhi"
+        },
+        "status": "PENDING"
+    },
+    {
+        "id": "EVT-AUTH-001",
+        "raw_input": "CRITICAL PROTOCOL ZERO ALERT: Toxic methyl isocyanate vapor leak detected at chemical storage facility near Ennore Port corridor. Automated evacuation siren and containment barrier activation requested. PROTOCOL ZERO ENGAGED — REQUIRES IMMEDIATE INCIDENT COMMANDER AUTHORIZATION.",
+        "location": {
+            "lat": 13.2000,
+            "lng": 80.3200,
+            "address": "Ennore Industrial Port Zone, Chennai, Tamil Nadu"
+        },
+        "status": "PENDING",
+        "requires_human_auth": true
+    }
+]
