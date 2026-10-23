@@ -594,7 +594,7 @@ export function SignalFeed({ className }: { className?: string }) {
                                                                 <Cpu className="w-3 h-3" />
                                                                 Tactical Analysis
                                                             </h4>
-                                                            <ul className="space-y-1.5 pl-1 border-l-2 border-cyan-900/30">
+                                                            <ul className="space-y-1.5 pl-0.5">
                                                                 {incident.display_reasoning.map((bullet, idx) => (
                                                                     <li key={idx} className="text-[11px] text-zinc-300 font-mono flex items-start gap-2">
                                                                         <span className="text-cyan-500 mt-0.5">•</span>
@@ -655,7 +655,7 @@ export function SignalFeed({ className }: { className?: string }) {
                                                                                 : "linear-gradient(to bottom, black 60%, transparent 100%)",
                                                                         }}
                                                                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                                                                        className="text-[11px] leading-relaxed text-zinc-400 font-mono whitespace-pre-wrap pl-1 border-l-2 border-cyan-900/30 overflow-hidden relative"
+                                                                        className="text-[11px] leading-relaxed text-zinc-300 font-mono whitespace-pre-wrap px-2.5 py-2 bg-black/40 border border-white/5 rounded-md overflow-hidden relative"
                                                                     >
                                                                         {technicalTrace}
                                                                     </motion.div>
@@ -687,7 +687,7 @@ export function SignalFeed({ className }: { className?: string }) {
                                                                 <Mic className="w-3 h-3" />
                                                                 Override Analysis
                                                             </h4>
-                                                            <div className="text-[11px] leading-relaxed text-zinc-300 font-mono pl-1 border-l-2 border-amber-500/50">
+                                                            <div className="text-[11px] leading-relaxed text-zinc-300 font-mono px-2.5 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-md">
                                                                 {incident.reasoning_trace.split('[COMMAND OVERRIDE]:')[1].trim()}
                                                             </div>
                                                         </div>

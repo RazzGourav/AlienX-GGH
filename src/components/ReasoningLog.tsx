@@ -49,7 +49,7 @@ function FormattedReasoningDisplay({ text }: { text: string }) {
                 const parts = trimmed.split(/(\*\*.*?\*\*)/g);
 
                 return (
-                    <div key={i} className={cn("text-[10px] leading-relaxed text-zinc-300/90 py-0.5", isList && "pl-3 border-l-2 border-zinc-800 ml-1 mt-1 bg-zinc-900/20 rounded-r")}>
+                    <div key={i} className={cn("text-[10px] leading-relaxed text-zinc-300/90 py-0.5", isList && "pl-2.5 ml-1 mt-1 bg-zinc-900/40 border border-white/5 rounded-md")}>
                         {parts.map((part, j) => {
                             if (part.startsWith('**') && part.endsWith('**')) {
                                 const content = part.slice(2, -2);
@@ -385,9 +385,9 @@ export function ReasoningLog({ className }: { className?: string }) {
                 <div className="mt-auto border-t border-zinc-800 pt-3">
                     <div className="flex items-center gap-2 mb-2">
                         <div className="flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce" />
-                            <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce delay-75" />
-                            <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce delay-150" />
+                            <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" />
+                            <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse [animation-delay:200ms]" />
+                            <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse [animation-delay:400ms]" />
                         </div>
                         <h4 className="text-purple-400 font-bold uppercase text-[10px] tracking-widest animate-pulse">
                             Generating Mission Report...
@@ -471,7 +471,7 @@ export function ReasoningLog({ className }: { className?: string }) {
                                     <span className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
                                     Live User Command
                                 </div>
-                                <div className="text-cyan-400 font-mono text-[11px] leading-relaxed italic border-l-2 border-cyan-500/50 pl-2">
+                                <div className="text-cyan-300 font-mono text-[11px] leading-relaxed italic bg-cyan-950/20 border border-cyan-500/20 rounded-md px-2.5 py-1.5">
                                     "{pendingIncident.transcript_context || pendingIncident.command_intent || pendingIncident.raw_input}"
                                 </div>
                             </div>
@@ -502,25 +502,25 @@ export function ReasoningLog({ className }: { className?: string }) {
                             {(latestTriaged && (!pendingIncident || isVoiceProcessing || pendingIncident.id === latestTriaged.id)) && (
                                 <>
                                     {latestTriaged.coordinator_trace && (
-                                        <div className="border-l-2 border-amber-500/30 pl-2 py-1 bg-amber-500/5 rounded-r">
-                                            <span className="text-amber-500 font-bold uppercase text-[9px] block mb-1">Coordinator Routing</span>
-                                            <span className="text-zinc-400 italic text-[10px]">
+                                        <div className="border border-amber-500/20 px-2.5 py-1.5 bg-amber-500/5 rounded-md">
+                                            <span className="text-amber-400 font-bold uppercase text-[9px] block mb-1">Coordinator Routing</span>
+                                            <span className="text-zinc-300 italic text-[10px]">
                                                 {latestTriaged.coordinator_trace}
                                             </span>
                                         </div>
                                     )}
                                     {latestTriaged.assigned_assets && latestTriaged.assigned_assets.length > 0 && (
-                                        <div className="border-l-2 border-emerald-500/30 pl-2 py-1 bg-emerald-500/5 rounded-r">
-                                            <span className="text-emerald-500 font-bold uppercase text-[9px] block mb-1">Logistics: Grounded Deployment</span>
-                                            <span className="text-zinc-400 text-[10px]">
+                                        <div className="border border-emerald-500/20 px-2.5 py-1.5 bg-emerald-500/5 rounded-md">
+                                            <span className="text-emerald-400 font-bold uppercase text-[9px] block mb-1">Logistics: Grounded Deployment</span>
+                                            <span className="text-zinc-300 text-[10px]">
                                                 Search-Grounding confirmed conditions. Deploying: <span className="text-emerald-400 font-bold">{latestTriaged.assigned_assets.join(", ")}</span>
                                             </span>
                                         </div>
                                     )}
                                     {latestTriaged.grounding_queries && latestTriaged.grounding_queries.length > 0 && (
-                                        <div className="border-l-2 border-blue-500/30 pl-2 py-1 bg-blue-500/5 rounded-r">
-                                            <span className="text-blue-400 font-bold uppercase text-[9px] block mb-1 flex items-center gap-1">
-                                                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                                        <div className="border border-blue-500/20 px-2.5 py-1.5 bg-blue-500/5 rounded-md">
+                                            <span className="text-blue-400 font-bold uppercase text-[9px] block mb-1 flex items-center gap-1.5">
+                                                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
                                                 INTEL: LIVE GROUNDING SOURCE
                                             </span>
                                             <div className="space-y-1 mt-1">

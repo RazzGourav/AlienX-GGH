@@ -151,9 +151,9 @@ export default function ResponderView() {
           {/* ... branding and controls ... */}
           <div className="flex items-center gap-4">
             <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-cyan-500/20 rounded-lg border border-white/10 rotate-45"></div>
+              <div className="absolute inset-0 bg-emerald-500/10 rounded-lg border border-white/10 rotate-45"></div>
               <div className="absolute inset-0 border border-emerald-500/30 rounded-lg scale-75"></div>
-              <span className="relative font-black text-xl bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">R</span>
+              <span className="relative font-black text-xl text-emerald-400 font-mono">R</span>
             </div>
             <div>
               <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-3">

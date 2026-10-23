@@ -168,7 +168,7 @@ export function MissionReportModal() {
                                             <FileText className="w-3.5 h-3.5 text-zinc-700" />
                                             Executive Summary
                                         </h3>
-                                        <div className="bg-white p-5 border border-zinc-200 shadow-sm text-zinc-800 text-[12px] leading-relaxed relative border-l-4 border-l-zinc-900">
+                                        <div className="bg-zinc-50/70 p-5 border border-zinc-300 rounded-md shadow-xs text-zinc-800 text-[12px] leading-relaxed relative">
                                             <p>{report.executive_summary}</p>
                                         </div>
                                     </div>

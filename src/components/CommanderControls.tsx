@@ -390,7 +390,7 @@ export function CommanderControls({ incidentContext, className }: { incidentCont
                     "VOICE OVERRIDE"
                 )}
 
-                <Mic className={cn("w-3.5 h-3.5 ml-0.5 shrink-0", isRecording && "fill-current animate-bounce")} />
+                <Mic className={cn("w-3.5 h-3.5 ml-0.5 shrink-0", isRecording && "fill-current animate-pulse text-red-400")} />
             </button>
 
 

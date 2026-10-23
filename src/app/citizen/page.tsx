@@ -624,7 +624,7 @@ export default function CitizenPortalPage() {
                 <div className="p-4 rounded-2xl bg-zinc-900/70 border border-white/10 space-y-3">
                     <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
                         <div className="flex items-center gap-2.5 text-zinc-300">
-                            <MapPin className={cn("w-4 h-4 text-red-500 shrink-0", isLocating && "animate-bounce")} />
+                            <MapPin className={cn("w-4 h-4 text-red-500 shrink-0", isLocating && "animate-pulse")} />
                             <span className="text-zinc-500 uppercase text-[10px] font-bold">REAL GPS:</span>
                             <span className="text-white font-bold tracking-wide">
                                 {location.lat.toFixed(4)}° N, {location.lng.toFixed(4)}° E
@@ -727,7 +727,7 @@ export default function CitizenPortalPage() {
                                 isSubmitting && "opacity-80 cursor-wait"
                             )}
                         >
-                            <AlertTriangle className="w-10 h-10 mb-1 animate-bounce" />
+                            <AlertTriangle className="w-10 h-10 mb-1 animate-pulse" />
                             <span>SOS</span>
                             <span className="text-[9px] font-mono tracking-widest text-red-200 uppercase mt-1">
                                 {isSubmitting ? "TRANSMITTING..." : "TAP TO SEND"}

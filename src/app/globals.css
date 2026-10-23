@@ -89,6 +89,24 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  ::selection {
+    background-color: rgba(16, 185, 129, 0.3);
+    color: #ffffff;
+  }
+
+  input, textarea {
+    caret-color: #10b981;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(16, 185, 129, 0.6);
+    outline-offset: 2px;
+  }
+
+  .tabular-nums, [data-tabular] {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 /* Custom Marker Icon Styles */
