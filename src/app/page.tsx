@@ -14,8 +14,9 @@ import { MissionReportModal } from "@/components/MissionReportModal";
 import QuotaHealthBadge from "@/components/QuotaHealthBadge";
 import { ScenarioSelector } from "@/components/ScenarioSelector";
 import { ResponderMobileView } from "@/components/ResponderMobileView";
-import { Smartphone, Radio, ExternalLink } from "lucide-react";
+import { Smartphone, Radio, ExternalLink, Video } from "lucide-react";
 import { useLiveCitizenFeed } from "@/hooks/useLiveCitizenFeed";
+import { LiveCameraInterceptor } from "@/components/LiveCameraInterceptor";
 
 const TacticalMap = dynamic(() => import("@/components/TacticalMap").then(mod => mod.TacticalMap), { ssr: false });
 
@@ -85,6 +86,7 @@ export default function ResponderView() {
   useLiveCitizenFeed();
 
   const [isResponderViewOpen, setIsResponderViewOpen] = useState(false);
+  const [isCameraInterceptorOpen, setIsCameraInterceptorOpen] = useState(false);
 
   const handleGenerateReport = async () => {
     if (isGeneratingReport) return;
@@ -134,6 +136,12 @@ export default function ResponderView() {
 
     checkMic();
     warmUpGemini();
+
+    const handleOpenCam = () => setIsCameraInterceptorOpen(true);
+    window.addEventListener("open-camera-interceptor", handleOpenCam);
+    return () => {
+      window.removeEventListener("open-camera-interceptor", handleOpenCam);
+    };
   }, [setIsMicAuthorized, showNotification]);
 
   // Calculate stats
@@ -175,6 +183,21 @@ export default function ResponderView() {
             >
               <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
               <span>RESPONDER HUD</span>
+            </button>
+
+            {/* GOD'S EYE CAMERA INTERCEPTOR TOGGLE */}
+            <button
+              onClick={() => setIsCameraInterceptorOpen(prev => !prev)}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-full border font-mono text-[10px] font-bold tracking-wider transition-all shadow-sm",
+                isCameraInterceptorOpen
+                  ? "bg-cyan-950/80 border-cyan-400 text-cyan-300 shadow-[0_0_14px_rgba(6,182,212,0.4)] animate-pulse"
+                  : "bg-zinc-900 border-white/10 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/40"
+              )}
+              title="Toggle God's Eye Live Camera & Municipal CCTV Interceptor"
+            >
+              <Video className={cn("w-3.5 h-3.5", isCameraInterceptorOpen ? "text-cyan-400" : "text-zinc-500")} />
+              <span>GOD&apos;S EYE // CAM</span>
             </button>
 
             {/* REAL-TIME CITIZEN INGESTION TOGGLE (ISOLATED WHEN OFF) */}
@@ -396,6 +419,21 @@ export default function ResponderView() {
 
       {/* Field Responder Mobile Terminal (PRD §4) */}
       <ResponderMobileView isOpen={isResponderViewOpen} onClose={() => setIsResponderViewOpen(false)} />
+
+      {/* God's Eye Live Camera Interceptor Modal / Drawer */}
+      <AnimatePresence>
+        {isCameraInterceptorOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 25, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 25, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed bottom-6 right-6 z-[9998] w-[94vw] sm:w-[500px] md:w-[540px] max-h-[85vh] shadow-[0_10px_40px_rgba(0,0,0,0.8)]"
+          >
+            <LiveCameraInterceptor onClose={() => setIsCameraInterceptorOpen(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

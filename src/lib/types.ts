@@ -308,3 +308,23 @@ export interface MissionReport {
         auth_status: string;
     }[];
 }
+
+export interface InterceptedCamera {
+    id: string;
+    title: string;
+    operator: string;
+    source: "WINDY" | "OVERPASS_OSM" | "MUNICIPAL_CCTV" | "AERIAL_RECON_DRONE";
+    location: {
+        lat: number;
+        lng: number;
+        address?: string;
+    };
+    distance_km: number;
+    bearing: string;
+    status: "ACTIVE" | "OFFLINE" | "INTERCEPTED";
+    stream_type: "HLS" | "MP4" | "IMAGE_SNAPSHOT" | "IFRAME";
+    stream_url: string;
+    preview_image_url?: string;
+    is_live: boolean;
+    last_updated?: string;
+}

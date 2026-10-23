@@ -5,6 +5,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useSimulationStore } from "@/lib/store";
 import { type Incident } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 // Priority color mapping
 const PRIORITY_COLORS = {
@@ -26,8 +27,10 @@ export default function LeafletTacticalMap({
 }) {
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const mapInstanceRef = useRef<L.Map | null>(null);
+    const tileLayerRef = useRef<L.TileLayer | null>(null);
     const markersRef = useRef<Map<string, L.Marker>>(new Map());
     const { incidents, focusedIncidentId, spotlightId, activeMapCenter } = useSimulationStore();
+    const [isSatelliteMode, setIsSatelliteMode] = useState(false);
 
     // Default center: Bilaspur / New Delhi
     const defaultCenter: [number, number] = activeMapCenter
@@ -45,17 +48,17 @@ export default function LeafletTacticalMap({
             attributionControl: false,
         });
 
-        // Add CartoDB Dark Matter tiles (Dark Tactical Theme with CARTO API Key)
         const cartoKey = process.env.NEXT_PUBLIC_CARTO_API_KEY || "";
-        const tileUrl = cartoKey
+        const darkTileUrl = cartoKey
             ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${cartoKey}`
             : "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png";
 
-        L.tileLayer(tileUrl, {
+        const initialLayer = L.tileLayer(darkTileUrl, {
             maxZoom: 19,
             subdomains: "abcd",
         }).addTo(map);
 
+        tileLayerRef.current = initialLayer;
         mapInstanceRef.current = map;
 
         // Cleanup on unmount
@@ -65,6 +68,29 @@ export default function LeafletTacticalMap({
             markersRef.current.clear();
         };
     }, []);
+
+    // Switch between Tactical Dark and High-Res Satellite View
+    useEffect(() => {
+        const map = mapInstanceRef.current;
+        if (!map) return;
+
+        if (tileLayerRef.current) {
+            map.removeLayer(tileLayerRef.current);
+        }
+
+        const cartoKey = process.env.NEXT_PUBLIC_CARTO_API_KEY || "";
+        const darkTileUrl = cartoKey
+            ? `https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${cartoKey}`
+            : "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png";
+        const satelliteTileUrl = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+
+        const newLayer = L.tileLayer(isSatelliteMode ? satelliteTileUrl : darkTileUrl, {
+            maxZoom: 19,
+            subdomains: isSatelliteMode ? [] : "abcd",
+        }).addTo(map);
+
+        tileLayerRef.current = newLayer;
+    }, [isSatelliteMode]);
 
     // Handle fly to active scenario region center
     const lastMapCenterRef = useRef<string | null>(null);
@@ -173,6 +199,32 @@ export default function LeafletTacticalMap({
 
     return (
         <div className={`relative h-full w-full ${className}`}>
+            {/* Tactical vs Satellite Basemap Switcher */}
+            <div className="absolute top-3 left-3 z-[400] flex items-center gap-1 bg-black/85 backdrop-blur-md p-1 rounded-lg border border-white/10 shadow-xl">
+                <button
+                    onClick={() => setIsSatelliteMode(false)}
+                    className={cn(
+                        "px-2.5 py-1 rounded text-[9px] font-mono font-bold tracking-wider transition-all cursor-pointer",
+                        !isSatelliteMode
+                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
+                            : "text-zinc-500 hover:text-zinc-300"
+                    )}
+                >
+                    TACTICAL GRID
+                </button>
+                <button
+                    onClick={() => setIsSatelliteMode(true)}
+                    className={cn(
+                        "px-2.5 py-1 rounded text-[9px] font-mono font-bold tracking-wider transition-all flex items-center gap-1 cursor-pointer",
+                        isSatelliteMode
+                            ? "bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 shadow-[0_0_8px_rgba(6,182,212,0.3)]"
+                            : "text-zinc-500 hover:text-zinc-300"
+                    )}
+                >
+                    <span>🛰️ SATELLITE</span>
+                </button>
+            </div>
+
             <div ref={mapContainerRef} className="h-full w-full z-0 bg-zinc-950" />
         </div>
     );

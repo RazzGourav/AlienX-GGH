@@ -78,3 +78,21 @@ export function findNearestMockResources(
 
     return candidates.slice(0, limit);
 }
+
+/**
+ * Calculates the cardinal compass bearing (N, NE, E, SE, S, SW, W, NW) from origin to target.
+ */
+export function calculateCompassBearing(lat1: number, lon1: number, lat2: number, lon2: number): string {
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const y = Math.sin(dLon) * Math.cos((lat2 * Math.PI) / 180);
+    const x =
+        Math.cos((lat1 * Math.PI) / 180) * Math.sin((lat2 * Math.PI) / 180) -
+        Math.sin((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.cos(dLon);
+
+    let brng = (Math.atan2(y, x) * 180) / Math.PI;
+    brng = (brng + 360) % 360;
+
+    const directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    const index = Math.round(brng / 22.5) % 16;
+    return directions[index];
+}

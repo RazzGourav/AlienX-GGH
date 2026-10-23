@@ -577,6 +577,17 @@ export function SignalFeed({ className }: { className?: string }) {
                                                                 <div className="text-[10px] font-mono text-zinc-500">
                                                                     GRID: {incident.location.lat.toFixed(5)}, {incident.location.lng.toFixed(5)}
                                                                 </div>
+                                                                <button
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        useSimulationStore.getState().setFocusedIncidentId(incident.id);
+                                                                        window.dispatchEvent(new CustomEvent("open-camera-interceptor", { detail: { incidentId: incident.id } }));
+                                                                    }}
+                                                                    className="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-500/40 hover:border-cyan-400 text-[10px] font-mono font-bold tracking-wider transition-all shadow-sm cursor-pointer"
+                                                                >
+                                                                    <Video className="w-3 h-3 text-cyan-400 animate-pulse" />
+                                                                    <span>SCAN CAMERAS // GOD&apos;S EYE</span>
+                                                                </button>
                                                             </div>
                                                             {incident.manual_trace_required && (
                                                                 <div className="mt-2 text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-1.5 rounded flex items-center gap-2 w-fit">
